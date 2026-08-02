@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import isotipo from "@/assets/logo.png.asset.json";
 import { useLanguage } from "@/lib/i18n";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { buttonStyles } from "@/components/ui-kit";
@@ -60,7 +59,7 @@ export function Header() {
         >
           {/* Móvil: solo isotipo. Escritorio: isotipo + palabra GARABS. */}
           <img
-            src={isotipo.url}
+            src="/garabs-isotipo-transparent.png"
             alt=""
             width={40}
             height={40}
