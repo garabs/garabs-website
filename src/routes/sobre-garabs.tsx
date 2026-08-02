@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import isotipo from "@/assets/logo.png.asset.json";
 import { useLanguage } from "@/lib/i18n";
 import { LinkButton, PageHeader } from "@/components/ui-kit";
 
@@ -42,7 +41,7 @@ function AboutPage() {
           <div className="min-w-0">
             <div className="rounded-xl border border-border bg-background p-8 text-center">
               <img
-                src={isotipo.url}
+                src="/garabs-isotipo-transparent.png"
                 alt="Isotipo de GARABS"
                 width={128}
                 height={128}
