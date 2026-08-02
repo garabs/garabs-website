@@ -1,8 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { useLanguage } from "@/lib/i18n";
-import { PageHeader } from "@/components/ui-kit";
-import { buttonStyles } from "@/components/ui-kit";
+import { PageHeader, buttonStyles } from "@/components/ui-kit";
 
 export const Route = createFileRoute("/contacto")({
   head: () => ({
@@ -28,18 +27,56 @@ export const Route = createFileRoute("/contacto")({
 
 const fieldClass =
   "mt-1.5 w-full rounded-md border border-input bg-background px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground";
+
 const labelClass = "block text-sm font-medium text-primary";
 
 function ContactPage() {
   const { t } = useLanguage();
   const f = t.contactPage.fields;
   const o = t.contactPage.options;
-  const [showDemoResult, setShowDemoResult] = useState(false);
 
-  // Modo demostración: no hay backend, así que no se simula un envío exitoso.
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  const [result, setResult] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setShowDemoResult(true);
+
+    setIsSubmitting(true);
+    setResult("");
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    formData.append(
+      "access_key",
+      "ddc797a5-9de2-4147-888b-3996310b290d",
+    );
+    formData.append("subject", "Nuevo mensaje desde garabs.com");
+    formData.append("from_name", "Formulario de contacto de GARABS");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("¡Gracias! Tu mensaje fue enviado correctamente.");
+        form.reset();
+      } else {
+        setResult(
+          "No pudimos enviar tu mensaje. Por favor, inténtalo nuevamente.",
+        );
+      }
+    } catch {
+      setResult(
+        "Ocurrió un error al enviar el mensaje. Por favor, inténtalo nuevamente.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -52,14 +89,10 @@ function ContactPage() {
 
       <section className="section-y">
         <div className="container-page max-w-2xl">
-          <p
-            role="note"
-            className="rounded-md border border-accent/40 bg-accent-soft px-4 py-3 text-sm text-primary"
+          <form
+            onSubmit={handleSubmit}
+            className="grid gap-5"
           >
-            {t.contactPage.demoNotice}
-          </p>
-
-          <form onSubmit={handleSubmit} noValidate={false} className="mt-8 grid gap-5">
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="name">
@@ -74,6 +107,7 @@ function ContactPage() {
                   className={fieldClass}
                 />
               </div>
+
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="business">
                   {f.business}
@@ -86,6 +120,7 @@ function ContactPage() {
                   className={fieldClass}
                 />
               </div>
+
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="email">
                   {f.email}
@@ -99,6 +134,7 @@ function ContactPage() {
                   className={fieldClass}
                 />
               </div>
+
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="phone">
                   {f.phone}{" "}
@@ -114,28 +150,40 @@ function ContactPage() {
                   className={fieldClass}
                 />
               </div>
+
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="language">
                   {f.language}
                 </label>
-                <select id="language" name="language" required className={fieldClass}>
+                <select
+                  id="language"
+                  name="language"
+                  required
+                  className={fieldClass}
+                >
                   <option value="">{o.choose}</option>
-                  {o.languages.map((l) => (
-                    <option key={l} value={l}>
-                      {l}
+                  {o.languages.map((language) => (
+                    <option key={language} value={language}>
+                      {language}
                     </option>
                   ))}
                 </select>
               </div>
+
               <div className="min-w-0">
                 <label className={labelClass} htmlFor="helpType">
                   {f.helpType}
                 </label>
-                <select id="helpType" name="helpType" required className={fieldClass}>
+                <select
+                  id="helpType"
+                  name="helpType"
+                  required
+                  className={fieldClass}
+                >
                   <option value="">{o.choose}</option>
-                  {o.help.map((h) => (
-                    <option key={h} value={h}>
-                      {h}
+                  {o.help.map((helpType) => (
+                    <option key={helpType} value={helpType}>
+                      {helpType}
                     </option>
                   ))}
                 </select>
@@ -158,6 +206,7 @@ function ContactPage() {
 
             <fieldset className="min-w-0">
               <legend className={labelClass}>{f.hasSite}</legend>
+
               <div className="mt-2 flex flex-wrap gap-5">
                 {[o.yes, o.no].map((value) => (
                   <label
@@ -194,8 +243,12 @@ function ContactPage() {
                   className={fieldClass}
                 />
               </div>
+
               <div className="min-w-0">
-                <label className={labelClass} htmlFor="preferredContact">
+                <label
+                  className={labelClass}
+                  htmlFor="preferredContact"
+                >
                   {f.preferredContact}
                 </label>
                 <select
@@ -205,9 +258,12 @@ function ContactPage() {
                   className={fieldClass}
                 >
                   <option value="">{o.choose}</option>
-                  {o.contact.map((c) => (
-                    <option key={c} value={c}>
-                      {c}
+                  {o.contact.map((contactMethod) => (
+                    <option
+                      key={contactMethod}
+                      value={contactMethod}
+                    >
+                      {contactMethod}
                     </option>
                   ))}
                 </select>
@@ -215,13 +271,22 @@ function ContactPage() {
             </div>
 
             <div>
-              <button type="submit" className={`${buttonStyles.primary} w-full sm:w-auto`}>
-                {t.contactPage.submit}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`${buttonStyles.primary} w-full sm:w-auto disabled:cursor-not-allowed disabled:opacity-60`}
+              >
+                {isSubmitting
+                  ? "Enviando..."
+                  : t.contactPage.submit}
               </button>
             </div>
 
-            <p aria-live="polite" className="text-sm text-muted-foreground">
-              {showDemoResult ? t.contactPage.demoResult : ""}
+            <p
+              aria-live="polite"
+              className="text-sm text-muted-foreground"
+            >
+              {result}
             </p>
           </form>
         </div>
