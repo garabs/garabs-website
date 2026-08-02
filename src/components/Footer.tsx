@@ -31,9 +31,11 @@ export function Footer() {
               {t.brand.name}
             </span>
           </div>
+
           <p className="mt-4 max-w-sm text-sm text-muted-foreground">
             {t.footer.description}
           </p>
+
           <p className="mt-4 text-sm text-muted-foreground">
             {t.footer.languages}
           </p>
@@ -43,14 +45,15 @@ export function Footer() {
           <h2 className="text-sm font-semibold text-primary">
             {t.footer.navTitle}
           </h2>
+
           <ul className="mt-4 space-y-2.5">
-            {navRoutes.map((r) => (
-              <li key={r.to}>
+            {navRoutes.map((route) => (
+              <li key={route.to}>
                 <Link
-                  to={r.to}
+                  to={route.to}
                   className="text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
-                  {t.nav[r.key]}
+                  {t.nav[route.key]}
                 </Link>
               </li>
             ))}
@@ -61,21 +64,23 @@ export function Footer() {
           <h2 className="text-sm font-semibold text-primary">
             {t.footer.legalTitle}
           </h2>
+
           <ul className="mt-4 space-y-2.5">
             <li>
               <Link
-                to="/politica-de-privacidad"
+                to="/privacidad"
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
-                {t.legal.privacy.title}
+                Política de Privacidad
               </Link>
             </li>
+
             <li>
               <Link
-                to="/terminos-de-servicio"
+                to="/privacy"
                 className="text-sm text-muted-foreground transition-colors hover:text-primary"
               >
-                {t.legal.terms.title}
+                Privacy Policy
               </Link>
             </li>
           </ul>
