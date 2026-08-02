@@ -1,7 +1,5 @@
 # GARABS Digital Presence
 
-Entendido. Entonces conviene convertirlo en un prompt neutral, sin mencionar Claude ni asumir cómo trabaja una herramienta específica.
-
 También cambiaría una cosa importante: en vez de decirle “inspecciona los archivos existentes”, debemos indicarle que use los archivos que se le proporcionen y que respete sus nombres reales. Algunas herramientas no pueden revisar carpetas igual que otras.
 
 Aquí tienes la versión corregida para usar con distintas herramientas de IA:
