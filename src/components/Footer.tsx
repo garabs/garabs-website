@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import isotipo from "@/assets/logo.png.asset.json";
 import { useLanguage } from "@/lib/i18n";
 
 const navRoutes = [
@@ -21,7 +20,7 @@ export function Footer() {
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <img
-              src={isotipo.url}
+              src="/garabs-isotipo-transparent.png"
               alt=""
               width={40}
               height={40}
