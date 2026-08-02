@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import isotipo from "@/assets/logo.png.asset.json";
 import { useLanguage } from "@/lib/i18n";
 import { LinkButton, Eyebrow } from "@/components/ui-kit";
 import { CheckIcon, DotIcon, serviceIcons } from "@/components/icons";
