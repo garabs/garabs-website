@@ -34,3 +34,27 @@ Install dependencies:
 
 ```bash
 npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Create a production build:
+
+```bash
+npm run build
+```
+
+## Deployment
+
+The production website is deployed automatically to Vercel from the `main` branch.
+
+## Company
+
+GARABS LLC  
+Founded in Ohio on July 28, 2026.
+
+© 2026 GARABS LLC. All rights reserved.
