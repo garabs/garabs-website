@@ -57,7 +57,7 @@ function Index() {
 
             <div className="flex flex-col items-center text-center">
               <img
-                src={isotipo.url}
+                src={/garabs-isotipo-transparent.png}
                 alt="Isotipo de GARABS"
                 width={160}
                 height={160}
